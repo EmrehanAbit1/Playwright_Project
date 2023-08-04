@@ -25,8 +25,8 @@
 
 ```bash
 Scenario 1: Create a new employee and verify if created successfully
-Description: User navigates to PIM page, deletes if the employee with the same name has already been created, adds new employee
-and verifies if created successfully
+Description: User navigates to PIM page, deletes if the employee with the same name has already been created,
+adds new employee and verifies if created successfully
 
 Testname: TC_01_Add new employee
 ```
