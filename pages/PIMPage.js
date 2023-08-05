@@ -34,9 +34,8 @@ exports.PIMPage = class PIMPage {
 
     async deleteIfEmployeeExists() {
         await this.searchForEmployee();
-        await this.waitForCellValues;
         if (await this.employeeInDeleteList.first().isVisible()) {
-            await this.checkboxInEMployeeList.nth(1).click();
+            await this.checkboxInEMployeeList.nth(0).click();
             await this.deleteEmpButton.click();
             await this.deleteConfirmButton.click();
         }
@@ -61,6 +60,7 @@ exports.PIMPage = class PIMPage {
         await this.employeeNameField.first().type(this.empName + " " + this.empLastName);
         await this.waitForSubmitButton;
         await this.submitButton.click();
+        await this.waitForCellValues;
     }
 
     /**
