@@ -9,6 +9,7 @@ exports.LoginPage = class LoginPage {
         this.mainMenu = page.locator("[class=oxd-main-menu]");
         this.username = "Admin";
         this.password = "admin123";
+        this.pageTitle = "OrangeHRM";
     }
 
     /**
@@ -16,7 +17,7 @@ exports.LoginPage = class LoginPage {
      */
     async navigateTo() {
         await this.page.goto('/');
-        await expect(this.page).toHaveTitle('OrangeHRM');
+        await expect(this.page).toHaveTitle(this.pageTitle);
     }
 
     /**
