@@ -12,12 +12,14 @@ exports.PIMPage = class PIMPage {
         this.employeeListTab = page.locator("//*[text()='Employee List']");
         this.employeeNameField = page.getByPlaceholder("Type for hints...");
         this.employeeList = page.locator("[class='oxd-table-cell oxd-padding-cell']");
+        this.employeeInDeleteList = page.getByRole('cell', { name: 'Emre' });
         this.employeeIdField = page.locator('form').getByRole('textbox');
         this.idExistsWarningMessage = page.getByText('Employee Id already exists');
         this.waitForSubmitButton = page.waitForSelector("[type=submit]");
         this.checkboxInEMployeeList = page.locator("//*[@class='oxd-icon bi-check oxd-checkbox-input-icon']");
         this.deleteEmpButton = page.locator("//*[text()=' Delete Selected ']");
         this.deleteConfirmButton = page.locator("//*[text()=' Yes, Delete ']");
+        this.waitForCellValues = page.waitForSelector("[class='oxd-table-body']");
         this.empName = "Emre";
         this.empLastName = "Abit";
     }
@@ -32,7 +34,8 @@ exports.PIMPage = class PIMPage {
 
     async deleteIfEmployeeExists() {
         await this.searchForEmployee();
-        if (await this.employeeList.nth(2).innerText() === "Emre") {
+        await this.waitForCellValues;
+        if (await this.employeeInDeleteList.first().isVisible()) {
             await this.checkboxInEMployeeList.nth(1).click();
             await this.deleteEmpButton.click();
             await this.deleteConfirmButton.click();
