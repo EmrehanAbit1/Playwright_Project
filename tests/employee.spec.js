@@ -3,7 +3,7 @@ const { LoginPage } = require('../pages/LoginPage');
 const { PIMPage } = require('../pages/PIMPage');
 const { LeavePage } = require('../pages/LeavePage');
 
-test.describe('Add employee in PIM and check if added successfully', () => {
+test.describe('This suite is for adding new employee and assigning leave', () => {
   test.beforeEach(async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.navigateTo();
