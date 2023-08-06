@@ -1,4 +1,4 @@
-const { test, expect } = require('@playwright/test');
+const { test, expect, chromium } = require('@playwright/test');
 const { LoginPage } = require('../pages/LoginPage');
 const { PIMPage } = require('../pages/PIMPage');
 const { LeavePage } = require('../pages/LeavePage');
@@ -10,10 +10,20 @@ test.describe('This suite is for adding new employee and assigning leave', () =>
     await loginPage.loginSuccessfully();
   });
 
+  test.afterAll(async () => {
+    const browser = await chromium.launch();
+    const page = await browser.newPage();
+    const loginPage = new LoginPage(page);
+    const pimPage = new PIMPage(page);
+    await loginPage.navigateTo();
+    await loginPage.loginSuccessfully();
+    await pimPage.navigateToPIMPage();
+    await pimPage.deleteIfEmployeeExists();
+  })
+
   test('TC_01_Add new employee', async ({ page }) => {
     const pimPage = new PIMPage(page);
     await pimPage.navigateToPIMPage();
-    await pimPage.deleteIfEmployeeExists();
     await pimPage.addNewEmployee();
     await pimPage.verifyIfEmployeeCreatedSuccessfully();
   });

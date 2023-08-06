@@ -62,7 +62,7 @@ exports.PIMPage = class PIMPage {
         await this.searchResult.click();
         await this.submitButton.click();
         // waitForCellValues does not work. after analyzing, it is observed that page appears after the visibility of DOM element. Had to wait for 1 sec for cell to appear.
-        await this.page.waitForTimeout(1000);
+        await this.page.waitForTimeout(300);
     }
 
     /**

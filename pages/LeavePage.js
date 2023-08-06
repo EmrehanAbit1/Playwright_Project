@@ -17,10 +17,19 @@ exports.LeavePage = class LeavePage {
         this.firstDropDown = page.locator('div').filter({ hasText: /^-- Select --$/ });
         this.firstDate = page.getByText('21');
         this.secondDate = page.getByText('25');
+        this.leaveResultDropDown = page.locator("(//*[@class='oxd-select-text--after'])[1]");
         this.partialDayDropDown = page.locator("(//*[@class='oxd-select-text--after'])[2]");
         this.durationDropDown = page.locator("(//*[@class='oxd-select-text--after'])[3]");
         this.commentField = page.locator('textarea');
         this.checkNameField = page.getByText('Emre Abit');
+        this.leaveListTab = "//*[text()='Leave List']";
+        this.nameAndLastName = 'Emre Abit';
+        this.vacationType = 'US - Vacation';
+        this.dayTypeAllDay = 'All Days';
+        this.dayTypeHalfDay = 'Half Day - Afternoon';
+        this.numOfLeaveDays = '20';
+        this.commentMessage = 'This Leave is for testing purposes';
+        this.leaveResultType = 'Scheduled';
     }
 
     /**
@@ -55,11 +64,11 @@ exports.LeavePage = class LeavePage {
      */
     async createNewEntitlement() {
         await this.addButton.click();
-        await this.nameLastNameField.type('Emre Abit');
-        await this.clickOnFieldComplementary('Emre Abit');
+        await this.nameLastNameField.type(this.nameAndLastName);
+        await this.clickOnFieldComplementary(this.nameAndLastName);
         await this.clickOnForm(0);
-        await this.clickOnFieldComplementary('US - Vacation');
-        await this.entitlementField.type('20');
+        await this.clickOnFieldComplementary(this.vacationType);
+        await this.entitlementField.type(this.numOfLeaveDays);
         await this.submitButton.click();
         await this.confirmButton.click();
     }
@@ -69,32 +78,33 @@ exports.LeavePage = class LeavePage {
      */
     async assignNewLeave() {
         await this.assignLeaveTab.click();
-        await this.nameLastNameField.type('Emre Abit');
-        await this.clickOnFieldComplementary('Emre Abit');
+        await this.nameLastNameField.type(this.nameAndLastName);
+        await this.clickOnFieldComplementary(this.nameAndLastName);
         await this.firstDropDown.nth(2).click();
-        await this.clickOnFieldComplementary('US - Vacation');
+        await this.clickOnFieldComplementary(this.vacationType);
         await this.clickOnForm(2);
         await this.firstDate.click();
+        await this.page.waitForTimeout(200);
         await this.clickOnForm(3);
         await this.secondDate.click();
         await this.partialDayDropDown.click();
-        await this.clickOnFieldComplementary('All Days');
+        await this.clickOnFieldComplementary(this.dayTypeAllDay);
         await this.durationDropDown.click();
-        await this.clickOnFieldComplementary('Half Day - Afternoon');
-        await this.commentField.type('This Leave is for testing purposes');
+        await this.clickOnFieldComplementary(this.dayTypeHalfDay);
+        await this.commentField.type(this.commentMessage);
         await this.submitButton.click();
-        await this.page.waitForTimeout(1000);
+        await this.page.waitForTimeout(200);
     }
 
     /**
      * Check if leave has been created successfully
      */
     async checkIfLeaveCreatedSuccessfully() {
-        await this.page.locator("//*[text()='Leave List']").click();
-        await this.nameLastNameField.type('Emre Abit');
-        await this.clickOnFieldComplementary('Emre Abit');
-        await this.page.locator("(//*[@class='oxd-select-text--after'])[1]").click();
-        await this.clickOnFieldComplementary('Scheduled');
+        await this.page.locator(this.leaveListTab).click();
+        await this.nameLastNameField.type(this.nameAndLastName);
+        await this.clickOnFieldComplementary(this.nameAndLastName);
+        await this.leaveResultDropDown.click();
+        await this.clickOnFieldComplementary(this.leaveResultType);
         await this.submitButton.click();
         await this.checkNameField.first().isVisible();
     }
