@@ -14,7 +14,8 @@
 * Navigate to root path of the project and run command `npm test`
 
 ## HTML report
-* Go to Project root directory: `./playwright-report/index.html`
+* Go to Project root directory: `./playwright-report/index.html`, right click on it and
+select `Reveal in File Explorer`. Then open it in any browser.
 * Also run command `npx playwright show-report` to get the report
 
 ## Project Structure
