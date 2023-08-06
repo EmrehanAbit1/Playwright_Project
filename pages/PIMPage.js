@@ -33,6 +33,9 @@ exports.PIMPage = class PIMPage {
         await this.menuPIM.click();
     }
 
+    /**
+     * Deleting the currently created employee when tests are finished.
+     */
     async deleteIfEmployeeExists() {
         await this.employeeListTab.click();
         await this.searchForEmployee();
