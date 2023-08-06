@@ -31,6 +31,5 @@ test.describe('Add employee in PIM and check if added successfully', () => {
     await leavePage.createNewEntitlement();
     await leavePage.assignNewLeave();
     await leavePage.checkIfLeaveCreatedSuccessfully();
-    await page.pause();
   })
 });

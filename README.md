@@ -32,10 +32,18 @@ Testname: TC_01_Add new employee
 ```
 
 ```bash
-Scenario 2: Another scenario for negative test has been added
+Scenario 2: Scenario for negative test has been added
 Description: Normally system does not allow to create a new employee with an existing employee id
 In this test scenario, a new employee is being tried to add with an existing employee id and checked
 if it shows the warning message and not allow to add employee
 
 Testname: TC_02_Negative test to check if new employee with the same id can not be created
+```
+
+```bash
+Scenario 3: Add leave for the employee
+Description: User created new entitlement for the employee, creates leave and checks if
+it is succeeded.
+
+Testname: TC_03_Assign leave to employee
 ```
