@@ -84,7 +84,7 @@ exports.PIMPage = class PIMPage {
     async getEmployeeId() {
         await this.employeeListTab.click();
         await this.searchForEmployee();
-        var employeeId = await this.employeeList.nth(1).innerText();
+        const employeeId = await this.employeeList.nth(1).innerText();
         return employeeId;
     }
 
