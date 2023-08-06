@@ -19,7 +19,8 @@ exports.PIMPage = class PIMPage {
         this.checkboxInEMployeeList = page.locator("//*[@class='oxd-icon bi-check oxd-checkbox-input-icon']");
         this.deleteEmpButton = page.locator("//*[text()=' Delete Selected ']");
         this.deleteConfirmButton = page.locator("//*[text()=' Yes, Delete ']");
-        this.waitForCellValues = page.waitForSelector("[class='oxd-table-body']");
+        this.waitForCellValues = page.waitForSelector("[class='oxd-table-header']");
+        this.searchResult = page.getByRole('option', { name: 'Emre Abit' });
         this.empName = "Emre";
         this.empLastName = "Abit";
     }
@@ -33,6 +34,7 @@ exports.PIMPage = class PIMPage {
     }
 
     async deleteIfEmployeeExists() {
+        await this.employeeListTab.click();
         await this.searchForEmployee();
         if (await this.employeeInDeleteList.first().isVisible()) {
             await this.checkboxInEMployeeList.nth(0).click();
@@ -55,18 +57,19 @@ exports.PIMPage = class PIMPage {
      * Search for employee in employee list page. This function created to prevent code repeat.
      */
     async searchForEmployee() {
-        await this.employeeListTab.click();
         await this.employeeNameField.first().fill("");
         await this.employeeNameField.first().type(this.empName + " " + this.empLastName);
-        await this.waitForSubmitButton;
+        await this.searchResult.click();
         await this.submitButton.click();
-        await this.waitForCellValues;
+        // waitForCellValues does not work. after analyzing, it is observed that page appears after the visibility of DOM element. Had to wait for 1 sec for cell to appear.
+        await this.page.waitForTimeout(1000);
     }
 
     /**
      * Check if employee created successfully
      */
     async verifyIfEmployeeCreatedSuccessfully() {
+        await this.employeeListTab.click();
         await this.searchForEmployee();
         await expect(this.employeeList.nth(2)).toHaveText(this.empName)
     }
@@ -76,6 +79,7 @@ exports.PIMPage = class PIMPage {
      * @returns employee id string
      */
     async getEmployeeId() {
+        await this.employeeListTab.click();
         await this.searchForEmployee();
         var employeeId = await this.employeeList.nth(1).innerText();
         return employeeId;
