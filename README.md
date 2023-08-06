@@ -19,7 +19,13 @@
 
 ## Project Structure
 * Page Object Modeling has been used. Location to page object go to: `pages` folder
-* Before all tests, it navigates to base url which is OrangeHRM and logins to system
+    * LeavePage - The page to assign and analyze leaves of the employees
+    * LoginPage - The page that allows us to enter username and password to login
+    * PIMPage   - The page that we use for creating new employee
+* Before each tests, it navigates to base url which is OrangeHRM and logins to system
+* After all tests are finished, it logins to system and deletes recently added employee
+* Test file is under `tests` folder, employee.spec.js
+* It uses chrome browser since I set it that way in `playwright.config.js` file
 
 ## Scenarios
 
@@ -47,3 +53,8 @@ it is succeeded.
 
 Testname: TC_03_Assign leave to employee
 ```
+
+## Notes
+* At some point I had to use Implicit wait (`page.waitForTimeout`) instead of Explicit wait
+(`page.waitForSelector`) because even though the DOM element is visible,
+page still continues to load. This causes for the code to fail
