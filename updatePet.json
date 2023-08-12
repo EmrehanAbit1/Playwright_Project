@@ -1,0 +1,26 @@
+{
+    "id": 1287463,
+    "category": {
+        "id": 0,
+        "name": "string"
+    },
+    "name": "lilly",
+    "photoUrls": [
+        "string"
+    ],
+    "tags": [
+        {
+            "id": 0,
+            "name": "string"
+        },
+        {
+            "id": 1,
+            "name": "heredot"
+        },
+        {
+            "id": 2,
+            "name": "maykil"
+        }
+    ],
+    "status": "available"
+}
